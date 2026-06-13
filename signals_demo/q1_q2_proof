@@ -1,0 +1,25 @@
+from django.http import HttpResponse
+from .models import TestModel
+
+import time
+import threading
+
+
+def test_signal_view(request):
+
+    start = time.time()
+
+    print(
+        "Thread inside view:",
+        threading.current_thread().ident
+    )
+
+    TestModel.objects.create(
+        name="Ramya"
+    )
+
+    end = time.time()
+
+    return HttpResponse(
+        f"Completed in {end-start:.2f} seconds"
+    )
